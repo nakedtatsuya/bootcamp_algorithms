@@ -8,4 +8,17 @@ export const depthFirstSearch = (
   root: FileSystemNode,
   target: string
 ): boolean => {
+  const stack = [root];
+
+  while (stack.length > 0) {
+    const node = stack.pop() as FileSystemNode;
+    if (node.name === target && !node.isDirectory) return true;
+
+    if (node.isDirectory) {
+      for (const child of node.children) {
+        stack.push(child);
+      }
+    }
+  }
+  return false;
 };
